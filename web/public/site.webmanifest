@@ -1,0 +1,16 @@
+{
+  "name": "ZENITH - Experienced Talent Remote Marketplace",
+  "short_name": "ZENITH",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#1B2A4A",
+  "background_color": "#F8F9FB",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "zenith-marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ZENITH — Experienced Talent. Remote Opportunities.",
+  "workspaces": [
+    "web",
+    "mobile",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=web",
+    "mobile": "npm run start --workspace=mobile",
+    "lint": "npm run lint --workspace=web && npm run lint --workspace=mobile",
+    "type-check": "npm run type-check --workspace=web && npm run type-check --workspace=mobile",
+    "db:migrate": "supabase db push",
+    "db:reset": "supabase db reset",
+    "db:types": "supabase gen types typescript --local > packages/types/src/database.types.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}
