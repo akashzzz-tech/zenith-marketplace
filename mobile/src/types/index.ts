@@ -36,12 +36,33 @@ export interface Project {
   created_at: string;
 }
 
+export interface MessageRow {
+  id: string;
+  conversation_id: string;
+  sender_id: string;
+  content: string;
+  message_type: 'text' | 'file' | 'system';
+  is_read: boolean;
+  created_at: string;
+}
+
+export interface MessageInsert {
+  id?: string;
+  conversation_id: string;
+  sender_id: string;
+  content: string;
+  message_type?: 'text' | 'file' | 'system';
+  is_read?: boolean;
+  created_at?: string;
+}
+
 export type Database = {
   public: {
     Tables: {
-      users: { Row: User };
-      profiles: { Row: Profile };
-      projects: { Row: Project };
+      users: { Row: User; Insert: Partial<User> };
+      profiles: { Row: Profile; Insert: Partial<Profile> };
+      projects: { Row: Project; Insert: Partial<Project> };
+      messages: { Row: MessageRow; Insert: MessageInsert };
     };
   };
 };
