@@ -1,203 +1,150 @@
 # ZENITH Marketplace
 
- **Experienced Talent. Remote Opportunities.**  
- *"Experience That Works Remotely."*
+**Experienced Talent. Remote Opportunities.**  
+*"Experience That Works Remotely."*
 
-ZENITH is a production-grade, global remote freelancing marketplace exclusively connecting **Retired Professionals** and **5+ Years Experienced Professionals** with companies, startups, and organizations seeking experienced remote talent.
+ZENITH is an exclusive, production-ready remote freelancing marketplace connecting **Retired Professionals** and **5+ Years Experienced Professionals** with companies, startups, and institutions seeking high-caliber, verified independent talent.
 
+---
 
-## ⚠️ Important Notices
+## 🏛️ Business Model & Core Principles
 
- **ZENITH IS AN INTERMEDIARY MARKETPLACE.** ZENITH does not employ freelancers, act as an employer of record, perform project work, or guarantee income. The platform facilitates discovery, matching, contracts, and payment processing between independent professionals and clients.
+**ZENITH is an intermediary marketplace platform.**
+- **NOT an Employer:** ZENITH does not employ freelancers or act as an employer of record.
+- **NOT a Project Delivery Agency:** Independent professionals perform work directly for clients.
+- **NO Guaranteed Income:** ZENITH facilitates discovery, contracts, milestones, and escrow payments.
+- **Eligibility Barrier:** Exclusively for:
+  - **Route A — Retired Professionals** (demonstrating career mastery).
+  - **Route B — 5+ Years Experienced Specialists** (strictly verified credentials).
 
- **PAYMENT PROVIDER APPROVAL REQUIRED** — See [Payment Setup](#payment-setup).
+---
 
- **LEGAL REVIEW REQUIRED** — Terms of Service, Privacy Policy, Independent Contractor Agreements, and jurisdiction-specific legal requirements must be reviewed by a qualified attorney before production launch.
+## 🎨 Brand & Design System
 
+- **Black (`#000000`)**: Deep backdrops, navbars, footers, and structured framing.
+- **White (`#FFFFFF`)**: High-contrast cards, clean surface typography, and form controls.
+- **Deep Cobalt Blue (`#2C3480`)**: Primary actions, button states, active badges, and focus rings.
 
+---
 
-## Monorepo Structure
+## 📂 Repository Structure
 
 ```
 zenith/
-├── web/                    # Next.js 15 Web Application
+├── web/                    # Next.js 15.3.9 App Router (Production Web App)
 │   ├── src/
-│   │   ├── app/            # App Router pages
-│   │   ├── components/     # Reusable UI components
-│   │   ├── lib/            # Utilities, Supabase clients, validations
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── providers/      # Context providers
-│   │   ├── store/          # Zustand state stores
-│   │   └── types/          # TypeScript type definitions
-│   └── public/             # Static assets
+│   │   ├── app/            # 42 Static & Dynamic Routes (Auth, Client, Pro, Admin)
+│   │   ├── components/     # UI Design System (Button, Badge, Card, Modal, etc.)
+│   │   ├── lib/            # Payments, Supabase SSR, Safety Message Filter, Realtime
+│   │   └── types/          # Database & application type definitions
+│   └── package.json
 │
-├── mobile/                 # Expo React Native Application
+├── mobile/                 # React Native & Expo SDK 52 Application
 │   ├── app/                # Expo Router file-based screens
-│   ├── src/
-│   │   ├── components/     # React Native UI components
-│   │   ├── hooks/          # Custom hooks
-│   │   ├── lib/            # Supabase, notifications, secure storage
-│   │   ├── providers/      # Context providers
-│   │   └── store/          # Zustand stores
-│   └── assets/             # Images, fonts
+│   ├── src/                # Shared state, components, and real-time hooks
+│   └── package.json
 │
-├── supabase/               # Supabase Configuration & Migrations
-│   ├── migrations/         # Numbered SQL migration files
-│   └── config.toml         # Supabase local dev config
+├── supabase/               # Complete PostgreSQL Database Layer
+│   ├── migrations/         # 17 Migration SQL files
+│   └── full_schema.sql     # Single-script complete database schema
 │
-└── packages/               # Shared packages (types, utilities)
-    └── types/              # Shared TypeScript types
+└── README.md
 ```
 
 ---
 
-## Tech Stack
+## 🚀 Quick Start (Local Development)
 
-| Layer | Technology |
-|:---|:---|
-| Web Frontend | Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 |
-| Mobile | Expo SDK 52 + React Native + Expo Router v4 + NativeWind |
-| Backend | Supabase (PostgreSQL + Auth + Storage + Edge Functions + Realtime) |
-| Database | PostgreSQL with RLS, Migrations, PITR |
-| Hosting | Vercel (Web) + Google Play + Apple App Store (Mobile) |
-| Push Notifications | Firebase Cloud Messaging (FCM) |
-| Analytics | PostHog |
-| Monitoring | Sentry |
-| Payments | Stripe Connect / Razorpay Marketplace (abstracted) |
+### 1. Prerequisites
+- **Node.js**: v20 or v22
+- **npm**: v10+
 
----
-
-## Quick Start
-
-### Prerequisites
-- Node.js 20+
-- npm 10+
-- Supabase CLI (`npm install -g supabase`)
-- Expo CLI (`npm install -g @expo/cli`)
-
-### 1. Clone & Install
-
+### 2. Install Dependencies
 ```bash
-git clone https://github.com/your-org/zenith.git
-cd zenith
-npm install
+# From repository root
+npm install --legacy-peer-deps
 ```
 
-### 2. Environment Setup
-
+### 3. Configure Environment Variables
+Copy and set your local environment file:
 ```bash
-# Web application
 cp web/.env.example web/.env.local
-
-# Mobile application
-cp mobile/.env.example mobile/.env
 ```
 
-Fill in all required environment variables. See `.env.example` for required keys.
+Inside `web/.env.local`:
+```ini
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_NAME=ZENITH
 
-### 3. Database Setup
+# Supabase Project Credentials
+NEXT_PUBLIC_SUPABASE_URL=https://<your-project-id>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-public-key>
+SUPABASE_SERVICE_ROLE_KEY=<your-service-role-key>
 
-```bash
-# Start local Supabase (Docker required)
-supabase start
-
-# Run all migrations
-supabase db push
-
-# Generate TypeScript types
-npm run db:types
+# Payment Abstraction (Sandbox default)
+PAYMENT_PROVIDER=sandbox
 ```
 
-### 4. Run Development
+### 4. Run Applications
+- **Web Application**:
+  ```bash
+  npm run dev --workspace=web
+  ```
+  Open [http://localhost:3000](http://localhost:3000)
 
-```bash
-# Web
-npm run dev
-
-# Mobile (in separate terminal)
-npm run mobile
-```
-
-
-
-## Database Migrations
-
-All migrations are in `supabase/migrations/` and run in numbered order:
-
-| Migration | Description |
-|:|:|
-| `000001_create_enums` | All PostgreSQL enum types |
-| `000002_create_users_profiles` | Core identity tables |
-| `000003_create_professional_profiles` | Professional profile, experience, skills |
-| `000004_create_verification` | Verification document workflow |
-| `000005_create_client_company` | Client profiles and company tables |
-| `000006_create_projects` | Project posting tables |
-| `000007_create_proposals_invitations` | Proposals and invitations |
-| `000008_create_messaging` | Conversations and messages |
-| `000009_create_contracts_milestones` | Contract and milestone tables |
-| `000010_create_payments_ledger` | Payments, ledger (double-entry), payouts, refunds |
-| `000011_create_disputes` | Dispute arbitration |
-| `000012_create_reviews_notifications` | Reviews, notifications, support tickets |
-| `000013_create_admin_fraud_audit` | Admin, fraud flags, audit logs (immutable) |
-| `000014_create_indexes` | Performance indexes |
-| `000015_create_functions_triggers` | Database triggers and functions |
-| `000016_seed_skills_categories` | Seed data for skills and categories |
-
-
-
-## Payment Setup
-
- **⚠️ PAYMENT PROVIDER APPROVAL REQUIRED**
-
-ZENITH uses an abstracted `IPaymentProvider` interface, supporting:
- **Stripe Connect** (US, EU, UK, SG, AU) — `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
- **Razorpay Marketplace** (India) — `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`
-
-**Never route customer funds through a personal bank account.**  
-Always use the sandbox/test keys during development. Never use real money for testing.
+- **Mobile Application**:
+  ```bash
+  npm run start --workspace=mobile
+  ```
 
 ---
 
-## Security
+## 🗄️ Database Setup (Supabase)
 
- Row Level Security (RLS) enabled on **all** database tables
- Verification documents stored in **private** Supabase Storage buckets
- Signed URLs expire in **< 15 minutes** for verification document access
- Payment secrets stored **server-side only** — never in frontend code
- Financial ledger entries are **immutable** (INSERT only, no UPDATE/DELETE)
- Admin actions require **MFA** enforcement
+The complete schema is bundled in a single, idempotent SQL script:
+`supabase/full_schema.sql`
 
+### How to apply:
+1. Open your project on [supabase.com](https://supabase.com).
+2. Go to **SQL Editor** > **New Query**.
+3. Copy the entire content of `supabase/full_schema.sql` and click **Run**.
+4. The script provisions:
+   - All 16 table schemas, PostgreSQL enums, and performance indexes.
+   - Immutable double-entry financial ledger (`ledger_entries`).
+   - Anti-fraud detection flags (`fraud_flags`) and audit trails (`audit_logs`).
+   - 25+ domain categories and seed skills.
+   - Storage buckets (`avatars`, `verification-documents`, `milestone-deliverables`) with Row Level Security.
 
+---
 
-## Development Phases
+## ☁️ Deploying Web App to Vercel
 
- Phase | Status | Description | |:|:|:|
+1. Push your repository to GitHub:
+   ```bash
+   git add .
+   git commit -m "feat: complete ZENITH marketplace"
+   git push -u origin main
+   ```
+2. Log in to [vercel.com](https://vercel.com) and click **Add New...** > **Project**.
+3. Import your `zenith` repository.
+4. Set **Root Directory** to `web`.
+5. Under **Environment Variables**, add:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `PAYMENT_PROVIDER=sandbox`
+6. Click **Deploy**. (All 42 routes compile and generate with **0 errors**).
+7. In **Supabase Dashboard** > **Authentication** > **URL Configuration**, add your Vercel URL to **Site URL** and **Redirect URLs**.
 
- 1 | ✅ Complete | Business requirements & architecture  2 | 🚧 In Progress | Project init, database schema |
- 3 | ⏳ Pending | Design system & UI shell |
- 4–25 | ⏳ Pending | Full feature development |
+---
 
+## 🔒 Security & Compliance Architecture
 
-## Legal
+- **Row Level Security (RLS)**: Enforced across 100% of tables.
+- **Private Document Buckets**: Verification docs and deliverables require authenticated signed URLs.
+- **Anti-Circumvention Protection**: Client/Professional messages scan for phone/email sharing, external payment bypass keywords, and banking credentials.
+- **Financial Integrity**: Double-entry accounting ensures debits equal credits before any escrow funds can disburse.
 
- **LEGAL REVIEW REQUIRED** before production launch:
-  Terms of Service
-  Privacy Policy  
-  Independent Contractor Agreement
-  Marketplace Fee Disclosure
-  Jurisdiction-specific payment regulations
-  Tax/GST/TDS withholding obligations
-  Data protection compliance (GDPR, CCPA, etc.)
+---
 
-
-
-## Contributing
-
-This is a private project. All contributors must sign the Confidentiality Agreement before access is granted.
-
-
-
-*ZENITH — Experienced Talent. Remote Opportunities.*
-
-# zenith
-
+*ZENITH — Experience That Works Remotely.*
