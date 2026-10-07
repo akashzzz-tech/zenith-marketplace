@@ -28,7 +28,7 @@ function formatDeadline(deadline: string | null): string {
   return new Date(deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-export default function ProjectCard({
+export function ProjectCard({
   title,
   company,
   category,

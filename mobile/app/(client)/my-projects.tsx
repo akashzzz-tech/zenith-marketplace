@@ -4,7 +4,17 @@ import { ProjectCard } from '../../src/components/project/ProjectCard';
 
 export default function MyProjectsScreen() {
   const dummyProjects = [
-    { id: '1', title: 'Senior UX Designer', company: 'Acme Corp', category: 'Design', budget: '$10k-$15k', deadline: 'Open' },
+    {
+      id: '1',
+      title: 'Senior UX Designer',
+      company: 'Acme Corp',
+      category: 'Design',
+      budgetMinCents: 1000000,
+      budgetMaxCents: 1500000,
+      minYearsExperience: 5,
+      isHourly: false,
+      deadline: '2026-12-01',
+    },
   ];
 
   return (

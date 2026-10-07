@@ -1,9 +1,15 @@
 export type Role = 'client' | 'professional' | 'admin';
+export type UserRole = Role;
+
+export interface MatchScoreBreakdown {
+  total: number;
+  reasons: string[];
+}
 
 export interface User {
   id: string;
   email: string;
-  role: Role;
+  role: UserRole;
   created_at: string;
 }
 

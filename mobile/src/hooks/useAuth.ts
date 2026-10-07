@@ -9,6 +9,24 @@ export function useAuth() {
   const { user, session, role, isLoading, isAuthenticated, setSession, setRole, setLoading, clearSession } =
     useAuthStore();
 
+  const fetchUserRole = useCallback(async (userId: string) => {
+    try {
+      const { data } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (data && 'role' in data) {
+        setRole((data as { role: UserRole }).role);
+      }
+    } catch (error) {
+      console.error('Error fetching user role:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [setRole, setLoading]);
+
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -32,25 +50,7 @@ export function useAuth() {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
-
-  const fetchUserRole = async (userId: string) => {
-    try {
-      const { data } = await supabase
-        .from('users')
-        .select('role')
-        .eq('id', userId)
-        .single();
-
-      if (data) {
-        setRole(data.role as UserRole);
-      }
-    } catch (error) {
-      console.error('Error fetching user role:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [fetchUserRole, setSession, setRole, setLoading]);
 
   const signIn = useCallback(async (email: string, password: string) => {
     setLoading(true);
@@ -60,7 +60,7 @@ export function useAuth() {
       throw error;
     }
     return data;
-  }, []);
+  }, [setLoading]);
 
   const signUp = useCallback(async (email: string, password: string) => {
     setLoading(true);
@@ -70,14 +70,14 @@ export function useAuth() {
       throw error;
     }
     return data;
-  }, []);
+  }, [setLoading]);
 
   const signOut = useCallback(async () => {
     await supabase.auth.signOut();
     await deleteToken('auth_token');
     clearSession();
     router.replace('/(auth)/login');
-  }, []);
+  }, [clearSession]);
 
   return {
     user,

@@ -7,7 +7,7 @@ interface VerificationBannerProps {
   onPress?: () => void;
 }
 
-export default function VerificationBanner({ status, onPress }: VerificationBannerProps) {
+export function VerificationBanner({ status, onPress }: VerificationBannerProps) {
   if (status === 'verified') return null;
 
   const getBannerDetails = () => {

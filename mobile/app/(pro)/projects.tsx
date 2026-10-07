@@ -4,8 +4,28 @@ import { ProjectCard } from '../../src/components/project/ProjectCard';
 
 export default function ProProjectsScreen() {
   const dummyProjects = [
-    { id: '1', title: 'Senior UX Designer', company: 'Acme Corp', category: 'Design', budget: '$10k-$15k', deadline: '2 weeks' },
-    { id: '2', title: 'Fractional CTO', company: 'Startup Inc', category: 'Engineering', budget: '$200/hr', deadline: 'Ongoing' },
+    {
+      id: '1',
+      title: 'Senior UX Designer',
+      company: 'Acme Corp',
+      category: 'Design',
+      budgetMinCents: 1000000,
+      budgetMaxCents: 1500000,
+      minYearsExperience: 5,
+      isHourly: false,
+      deadline: '2026-12-01',
+    },
+    {
+      id: '2',
+      title: 'Fractional CTO',
+      company: 'Startup Inc',
+      category: 'Engineering',
+      budgetMinCents: 20000,
+      budgetMaxCents: 20000,
+      minYearsExperience: 8,
+      isHourly: true,
+      deadline: null,
+    },
   ];
 
   return (
@@ -17,7 +37,7 @@ export default function ProProjectsScreen() {
           placeholder="Search by keywords or skills..."
         />
         <View className="flex-row space-x-2">
-          {/* Add Filter Chips here later */}
+          {/* Add Filter Chips here */}
         </View>
       </View>
 
@@ -25,13 +45,7 @@ export default function ProProjectsScreen() {
         data={dummyProjects}
         contentContainerStyle={{ padding: 16 }}
         renderItem={({ item }) => (
-          <ProjectCard 
-            title={item.title} 
-            company={item.company} 
-            category={item.category}
-            budget={item.budget}
-            deadline={item.deadline}
-          />
+          <ProjectCard {...item} />
         )}
         keyExtractor={item => item.id}
       />

@@ -12,7 +12,7 @@ export default function ProDashboardScreen() {
         <Text className="text-2xl font-bold text-primary-900">Dashboard</Text>
       </View>
 
-      {!isVerified && <VerificationBanner />}
+      {!isVerified && <VerificationBanner status="unverified" />}
 
       <View className="flex-row justify-between mb-6">
         <Card className="flex-1 mr-2 p-4 items-center">
