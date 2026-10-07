@@ -15,6 +15,9 @@ const config: Config = {
         background: '#F8F9FB',
         success: '#22C55E',
         error: '#EF4444',
+        black: '#000000',
+        white: '#FFFFFF',
+        cobaltDeep: '#2C3480',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
@@ -23,4 +26,5 @@ const config: Config = {
   },
   plugins: [],
 };
-export default config;\n
+
+export default config;

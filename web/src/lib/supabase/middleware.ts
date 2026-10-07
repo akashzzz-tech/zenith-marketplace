@@ -3,10 +3,12 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 export const updateSession = async (request: NextRequest) => {
   let response = NextResponse.next({ request: { headers: request.headers } });
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-project.supabase.co';
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummy_anon_key_for_build';
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    url,
+    anonKey,
     {
       cookies: {
         get(name: string) {
@@ -24,4 +26,4 @@ export const updateSession = async (request: NextRequest) => {
 
   await supabase.auth.getUser();
   return response;
-};\n
+};

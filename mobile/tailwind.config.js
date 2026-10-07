@@ -5,8 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        black: '#000000',
+        white: '#FFFFFF',
+        cobaltDeep: '#2C3480',
         primary: {
-          DEFAULT: '#0F172A',
+          DEFAULT: '#2C3480',
           50: '#F8FAFC',
           100: '#F1F5F9',
           200: '#E2E8F0',
@@ -19,10 +22,10 @@ module.exports = {
           900: '#0F172A',
           950: '#020617',
         },
-        secondary: '#0EA5E9',
-        accent: '#10B981',
+        secondary: '#C9A84C',
+        accent: '#6B7FA3',
       },
     },
   },
   plugins: [],
-}
+};

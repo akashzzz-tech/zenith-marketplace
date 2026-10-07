@@ -3,11 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --background: #F8F9FB;
-  --foreground: #1B2A4A;
+  --background: #FFFFFF;
+  --foreground: #000000;
+  --cobalt-deep: #2C3480;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-}\n
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba(44, 52, 128, 0.15);
+}

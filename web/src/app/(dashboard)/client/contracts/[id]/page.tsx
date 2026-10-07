@@ -7,13 +7,22 @@ import Button from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { formatCurrency } from '@/lib/utils';
 
+interface MilestoneItem {
+  id: string;
+  title: string;
+  amountCents: number;
+  status: 'pending' | 'submitted' | 'approved' | 'disputed' | 'cancelled';
+  paymentState: string;
+  deliverableNotes: string | null;
+}
+
 export default function ClientContractDetailPage() {
-  const [milestones, setMilestones] = useState([
+  const [milestones, setMilestones] = useState<MilestoneItem[]>([
     {
       id: 'm1',
       title: 'Geotechnical Soil-Structure Model Review',
       amountCents: 150000,
-      status: 'approved' as const,
+      status: 'approved',
       paymentState: 'PAID_OUT',
       deliverableNotes: 'Calculations report and site verification memorandum attached.',
     },
@@ -21,7 +30,7 @@ export default function ClientContractDetailPage() {
       id: 'm2',
       title: 'Nonlinear Dynamic Model Cross-Verification',
       amountCents: 200000,
-      status: 'submitted' as const, // Ready for client inspection & sign-off
+      status: 'submitted',
       paymentState: 'FUNDS_HELD_IN_ESCROW',
       deliverableNotes: 'Completed ETABS verification files and response spectrum curves uploaded.',
     },
@@ -29,7 +38,7 @@ export default function ClientContractDetailPage() {
       id: 'm3',
       title: 'Final Structural Review Memorandum & Sign-off',
       amountCents: 150000,
-      status: 'pending' as const,
+      status: 'pending',
       paymentState: 'AWAITING_FUNDING',
       deliverableNotes: null,
     },
@@ -41,7 +50,7 @@ export default function ClientContractDetailPage() {
   const handleApproveAndRelease = (milestoneId: string) => {
     setMilestones((prev) =>
       prev.map((m) =>
-        m.id === milestoneId ? { ...m, status: 'approved', paymentState: 'PAID_OUT' } : m
+        m.id === milestoneId ? { ...m, status: 'approved' as const, paymentState: 'PAID_OUT' } : m
       )
     );
     setApprovedSuccess(true);
@@ -52,16 +61,16 @@ export default function ClientContractDetailPage() {
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-2xl font-bold text-primary">Contract #ZEN-C8492</h1>
+            <h1 className="text-2xl font-bold text-black">Contract #ZEN-C8492</h1>
             <Badge variant="success">Active Contract</Badge>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-black/60">
             Professional: <strong>Dr. Arthur Vance (Retired Chief Engineer)</strong> • Total Escrow: {formatCurrency(500000)}
           </p>
         </div>
         <Link
           href="/client/messages?recipient=pro_vance"
-          className="bg-white border border-slate-300 text-slate-700 text-xs font-semibold px-3 py-2 rounded-lg hover:bg-slate-50"
+          className="bg-white border border-black/10 text-black text-xs font-semibold px-4 py-2 rounded-lg hover:border-cobaltDeep hover:text-cobaltDeep transition-all"
         >
           Open Project Messages
         </Link>
@@ -73,16 +82,23 @@ export default function ClientContractDetailPage() {
         </div>
       )}
 
-      <Card className="p-6">
-        <h3 className="font-bold text-primary text-base mb-4">Milestone Escrow Workflow</h3>
+      {disputeModal && (
+        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex justify-between items-center">
+          <span>Dispute arbitration notice initiated with platform compliance. An admin will review evidence.</span>
+          <button onClick={() => setDisputeModal(false)} className="underline font-semibold ml-2">Dismiss</button>
+        </div>
+      )}
+
+      <Card className="p-6 border-black/10">
+        <h3 className="font-bold text-black text-base mb-4">Milestone Escrow Workflow</h3>
 
         <div className="space-y-4">
           {milestones.map((m, idx) => (
-            <div key={m.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
+            <div key={m.id} className="p-4 rounded-xl border border-black/10 bg-black/[0.02] space-y-3">
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-primary text-sm">Milestone {idx + 1}: {m.title}</span>
+                    <span className="font-bold text-black text-sm">Milestone {idx + 1}: {m.title}</span>
                     <Badge
                       variant={
                         m.status === 'approved'
@@ -96,7 +112,7 @@ export default function ClientContractDetailPage() {
                       {m.status.toUpperCase()}
                     </Badge>
                   </div>
-                  <span className="text-xs text-slate-500 mt-0.5 block">
+                  <span className="text-xs text-black/50 mt-0.5 block">
                     Escrow State: <strong>{m.paymentState}</strong>
                   </span>
                 </div>
@@ -104,14 +120,14 @@ export default function ClientContractDetailPage() {
               </div>
 
               {m.deliverableNotes && (
-                <div className="p-3 bg-white border border-slate-200 rounded-lg text-xs">
-                  <span className="font-semibold text-slate-700 block mb-0.5">Professional Deliverable Submission:</span>
-                  <p className="text-slate-600">{m.deliverableNotes}</p>
+                <div className="p-3 bg-white border border-black/10 rounded-lg text-xs">
+                  <span className="font-semibold text-black/80 block mb-0.5">Professional Deliverable Submission:</span>
+                  <p className="text-black/60">{m.deliverableNotes}</p>
                 </div>
               )}
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200/60">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-black/10">
                 {m.status === 'submitted' && (
                   <>
                     <Button
