@@ -10,10 +10,12 @@ VALUES
 ON CONFLICT (id) DO NOTHING;
 
 -- 2. Avatars RLS: Public read, Authenticated write for own folder
+DROP POLICY IF EXISTS "Public Read Avatars" ON storage.objects;
 CREATE POLICY "Public Read Avatars"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'avatars');
 
+DROP POLICY IF EXISTS "Users can upload own avatar" ON storage.objects;
 CREATE POLICY "Users can upload own avatar"
   ON storage.objects FOR INSERT
   TO authenticated
@@ -22,6 +24,7 @@ CREATE POLICY "Users can upload own avatar"
     AND (storage.foldername(name))[1] = auth.uid()::text
   );
 
+DROP POLICY IF EXISTS "Users can update own avatar" ON storage.objects;
 CREATE POLICY "Users can update own avatar"
   ON storage.objects FOR UPDATE
   TO authenticated
@@ -31,6 +34,7 @@ CREATE POLICY "Users can update own avatar"
   );
 
 -- 3. Verification Documents RLS: Private, owner and admin read/write
+DROP POLICY IF EXISTS "Users can view own verification documents" ON storage.objects;
 CREATE POLICY "Users can view own verification documents"
   ON storage.objects FOR SELECT
   TO authenticated
@@ -45,6 +49,7 @@ CREATE POLICY "Users can view own verification documents"
     )
   );
 
+DROP POLICY IF EXISTS "Users can upload own verification documents" ON storage.objects;
 CREATE POLICY "Users can upload own verification documents"
   ON storage.objects FOR INSERT
   TO authenticated
@@ -54,6 +59,7 @@ CREATE POLICY "Users can upload own verification documents"
   );
 
 -- 4. Milestone Deliverables RLS: Contract participants and Admins
+DROP POLICY IF EXISTS "Contract parties and admins can view deliverables" ON storage.objects;
 CREATE POLICY "Contract parties and admins can view deliverables"
   ON storage.objects FOR SELECT
   TO authenticated
@@ -76,6 +82,7 @@ CREATE POLICY "Contract parties and admins can view deliverables"
     )
   );
 
+DROP POLICY IF EXISTS "Contract parties can upload deliverables" ON storage.objects;
 CREATE POLICY "Contract parties can upload deliverables"
   ON storage.objects FOR INSERT
   TO authenticated
