@@ -1,21 +1,20 @@
 # ZENITH Marketplace
 
-> **Experienced Talent. Remote Opportunities.**  
-> *"Experience That Works Remotely."*
+ **Experienced Talent. Remote Opportunities.**  
+ *"Experience That Works Remotely."*
 
 ZENITH is a production-grade, global remote freelancing marketplace exclusively connecting **Retired Professionals** and **5+ Years Experienced Professionals** with companies, startups, and organizations seeking experienced remote talent.
 
----
 
 ## ⚠️ Important Notices
 
-> **ZENITH IS AN INTERMEDIARY MARKETPLACE.** ZENITH does not employ freelancers, act as an employer of record, perform project work, or guarantee income. The platform facilitates discovery, matching, contracts, and payment processing between independent professionals and clients.
+ **ZENITH IS AN INTERMEDIARY MARKETPLACE.** ZENITH does not employ freelancers, act as an employer of record, perform project work, or guarantee income. The platform facilitates discovery, matching, contracts, and payment processing between independent professionals and clients.
 
-> **PAYMENT PROVIDER APPROVAL REQUIRED** — See [Payment Setup](#payment-setup).
+ **PAYMENT PROVIDER APPROVAL REQUIRED** — See [Payment Setup](#payment-setup).
 
-> **LEGAL REVIEW REQUIRED** — Terms of Service, Privacy Policy, Independent Contractor Agreements, and jurisdiction-specific legal requirements must be reviewed by a qualified attorney before production launch.
+ **LEGAL REVIEW REQUIRED** — Terms of Service, Privacy Policy, Independent Contractor Agreements, and jurisdiction-specific legal requirements must be reviewed by a qualified attorney before production launch.
 
----
+
 
 ## Monorepo Structure
 
@@ -119,14 +118,14 @@ npm run dev
 npm run mobile
 ```
 
----
+
 
 ## Database Migrations
 
 All migrations are in `supabase/migrations/` and run in numbered order:
 
 | Migration | Description |
-|:---|:---|
+|:|:|
 | `000001_create_enums` | All PostgreSQL enum types |
 | `000002_create_users_profiles` | Core identity tables |
 | `000003_create_professional_profiles` | Professional profile, experience, skills |
@@ -144,15 +143,15 @@ All migrations are in `supabase/migrations/` and run in numbered order:
 | `000015_create_functions_triggers` | Database triggers and functions |
 | `000016_seed_skills_categories` | Seed data for skills and categories |
 
----
+
 
 ## Payment Setup
 
-> **⚠️ PAYMENT PROVIDER APPROVAL REQUIRED**
+ **⚠️ PAYMENT PROVIDER APPROVAL REQUIRED**
 
 ZENITH uses an abstracted `IPaymentProvider` interface, supporting:
-- **Stripe Connect** (US, EU, UK, SG, AU) — `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
-- **Razorpay Marketplace** (India) — `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`
+ **Stripe Connect** (US, EU, UK, SG, AU) — `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
+ **Razorpay Marketplace** (India) — `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`
 
 **Never route customer funds through a personal bank account.**  
 Always use the sandbox/test keys during development. Never use real money for testing.
@@ -161,46 +160,44 @@ Always use the sandbox/test keys during development. Never use real money for te
 
 ## Security
 
-- Row Level Security (RLS) enabled on **all** database tables
-- Verification documents stored in **private** Supabase Storage buckets
-- Signed URLs expire in **< 15 minutes** for verification document access
-- Payment secrets stored **server-side only** — never in frontend code
-- Financial ledger entries are **immutable** (INSERT only, no UPDATE/DELETE)
-- Admin actions require **MFA** enforcement
+ Row Level Security (RLS) enabled on **all** database tables
+ Verification documents stored in **private** Supabase Storage buckets
+ Signed URLs expire in **< 15 minutes** for verification document access
+ Payment secrets stored **server-side only** — never in frontend code
+ Financial ledger entries are **immutable** (INSERT only, no UPDATE/DELETE)
+ Admin actions require **MFA** enforcement
 
----
+
 
 ## Development Phases
 
-| Phase | Status | Description |
-|:---|:---|:---|
-| 1 | ✅ Complete | Business requirements & architecture |
-| 2 | 🚧 In Progress | Project init, database schema |
-| 3 | ⏳ Pending | Design system & UI shell |
-| 4–25 | ⏳ Pending | Full feature development |
+ Phase | Status | Description | |:|:|:|
 
----
+ 1 | ✅ Complete | Business requirements & architecture  2 | 🚧 In Progress | Project init, database schema |
+ 3 | ⏳ Pending | Design system & UI shell |
+ 4–25 | ⏳ Pending | Full feature development |
+
 
 ## Legal
 
-> **LEGAL REVIEW REQUIRED** before production launch:
-> - Terms of Service
-> - Privacy Policy  
-> - Independent Contractor Agreement
-> - Marketplace Fee Disclosure
-> - Jurisdiction-specific payment regulations
-> - Tax/GST/TDS withholding obligations
-> - Data protection compliance (GDPR, CCPA, etc.)
+ **LEGAL REVIEW REQUIRED** before production launch:
+  Terms of Service
+  Privacy Policy  
+  Independent Contractor Agreement
+  Marketplace Fee Disclosure
+  Jurisdiction-specific payment regulations
+  Tax/GST/TDS withholding obligations
+  Data protection compliance (GDPR, CCPA, etc.)
 
----
+
 
 ## Contributing
 
 This is a private project. All contributors must sign the Confidentiality Agreement before access is granted.
 
----
+
 
 *ZENITH — Experienced Talent. Remote Opportunities.*
-=======
+
 # zenith
 
